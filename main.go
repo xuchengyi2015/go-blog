@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-crud/conf"
-	"go-crud/server"
+	"go-blog/conf"
+	"go-blog/server"
 )
 
 func main() {
@@ -11,5 +11,5 @@ func main() {
 
 	// 装载路由
 	r := server.NewRouter()
-	r.Run(":3000")
+	r.Run(":3002")
 }

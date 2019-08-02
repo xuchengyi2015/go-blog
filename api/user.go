@@ -1,8 +1,8 @@
 package api
 
 import (
-	"go-crud/serializer"
-	"go-crud/service"
+	"go-blog/serializer"
+	"go-blog/service"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"go-crud/model"
-	"go-crud/serializer"
+	"go-blog/model"
+	"go-blog/serializer"
 )
 
 // UserRegisterService 管理用户注册服务

@@ -1,6 +1,6 @@
 package serializer
 
-import "go-crud/model"
+import "go-blog/model"
 
 // User 用户序列化器
 type User struct {

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"go-crud/model"
-	"go-crud/serializer"
+	"go-blog/model"
+	"go-blog/serializer"
 )
 
 // UserLoginService 管理用户登录的服务

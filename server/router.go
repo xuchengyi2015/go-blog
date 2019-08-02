@@ -1,8 +1,8 @@
 package server
 
 import (
-	"go-crud/api"
-	"go-crud/middleware"
+	"go-blog/api"
+	"go-blog/middleware"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -29,12 +29,16 @@ func NewRouter() *gin.Engine {
 		v1.POST("user/login", api.UserLogin)
 
 		// 需要登录保护的
-		v1.Use(middleware.AuthRequired())
+		auth := r.Group("")
+		auth.Use(middleware.AuthRequired())
 		{
 			// User Routing
-			v1.GET("user/me", api.UserMe)
-			v1.DELETE("user/logout", api.UserLogout)
+			auth.GET("user/me", api.UserMe)
+			auth.DELETE("user/logout", api.UserLogout)
 		}
+
+		v1.GET("blog/:id", api.BlogShow)
+		v1.GET("blogs", api.BlogList)
 	}
 	return r
 }
