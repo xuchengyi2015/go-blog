@@ -30,6 +30,7 @@ func BuildBlog(blog model.Blog) Blog {
 func BuildBlogs(items []model.Blog) (blogs []Blog) {
 	for _, v := range items {
 		blog := BuildBlog(v)
+		blog.Content=util.SubString(blog.Content,0,200)
 		blogs = append(blogs, blog)
 	}
 	return blogs
