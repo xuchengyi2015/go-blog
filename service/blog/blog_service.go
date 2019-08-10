@@ -51,3 +51,29 @@ func Show(id string) serializer.Response {
 		Data: serializer.BuildBlog(blog),
 	}
 }
+
+func Delete(id string) serializer.Response {
+	var blog model.Blog
+
+	err := model.DB.First(&blog).Error
+	if err != nil {
+		return serializer.Response{
+			Status: 50001,
+			Msg:    "error",
+			Error:  err.Error(),
+		}
+	}
+
+	err=model.DB.Delete(&blog).Error
+	if err != nil {
+		return serializer.Response{
+			Status: 50001,
+			Msg:    "error",
+			Error:  err.Error(),
+		}
+	}
+
+	return serializer.Response{
+		Msg:"It's success to delete a blog.",
+	}
+}

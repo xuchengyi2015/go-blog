@@ -14,3 +14,8 @@ func BlogShow(c *gin.Context) {
 	res := blog.Show(c.Param("id"))
 	c.JSON(200, res)
 }
+
+func BlogDelete(c *gin.Context) {
+	res := blog.Delete(c.Param("id"))
+	c.JSON(200, res)
+}

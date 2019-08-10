@@ -1,9 +1,7 @@
 package util
 
-import "fmt"
-
 func SubString(str string, begin, length int) string {
-	fmt.Printf("substring=%s\n", str)
+	//fmt.Printf("substring=%s\n", str)
 	rs := []rune(str)
 	lth := len(rs)
 
@@ -17,6 +15,6 @@ func SubString(str string, begin, length int) string {
 	if end > lth {
 		end = lth
 	}
-	fmt.Printf("begin=%d,end=%d,lth=%d\n", begin, end, lth)
+	//fmt.Printf("begin=%d,end=%d,lth=%d\n", begin, end, lth)
 	return string(rs[begin:end])
 }

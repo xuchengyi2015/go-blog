@@ -39,6 +39,7 @@ func NewRouter() *gin.Engine {
 
 		v1.GET("blog/:id", api.BlogShow)
 		v1.GET("blogs", api.BlogList)
+
 	}
 	return r
 }
