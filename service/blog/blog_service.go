@@ -39,7 +39,7 @@ func List(keyword string, category string) serializer.Response {
 func Show(id string) serializer.Response {
 	var blog model.Blog
 
-	err := model.DB.First(&blog).Error
+	err := model.DB.First(&blog,id).Error
 	if err != nil {
 		return serializer.Response{
 			Status: 50001,

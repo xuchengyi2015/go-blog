@@ -9,4 +9,7 @@ type Blog struct {
 	Category string
 	Content  string `grom:"type:text;"`
 	Comments string
+	Tags string
+	Brief string
+	ThemeImage string
 }
