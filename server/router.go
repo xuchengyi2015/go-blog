@@ -28,6 +28,11 @@ func NewRouter() *gin.Engine {
 		// 用户登录
 		v1.POST("user/login", api.UserLogin)
 
+		v1.GET("blog/:id", api.BlogShow)
+		v1.POST("blogs", api.BlogList)
+		v1.POST("blog", api.BlogSave)
+		v1.DELETE("blog/:id", api.BlogDelete)
+
 		// 需要登录保护的
 		auth := r.Group("")
 		auth.Use(middleware.AuthRequired())
@@ -36,10 +41,6 @@ func NewRouter() *gin.Engine {
 			auth.GET("user/me", api.UserMe)
 			auth.DELETE("user/logout", api.UserLogout)
 		}
-
-		v1.GET("blog/:id", api.BlogShow)
-		v1.GET("blogs", api.BlogList)
-
 	}
 	return r
 }
