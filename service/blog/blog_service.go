@@ -23,6 +23,7 @@ type QueryBlogService struct {
 	Offset     uint   `json:"offset"`
 	QueryField string `json:"query_field"`
 	QueryValue string `json:"query_value"`
+	Category   string `json:"category"`
 }
 
 func (service *CreateBlogService) Save() (model.Blog, *serializer.Response) {
