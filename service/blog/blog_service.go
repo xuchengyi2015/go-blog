@@ -127,9 +127,9 @@ func (service *QueryBlogService) List() *serializer.Response {
 	var blogs []model.Blog
 	var err error
 	if service.QueryField != "" {
-		err = model.DB.Where(service.QueryField+" = ?", service.QueryValue).Order("id").Limit(service.Limit).Offset(service.Offset).Find(&blogs).Error
+		err = model.DB.Where(service.QueryField+" = ?", service.QueryValue).Order("id desc").Limit(service.Limit).Offset(service.Offset).Find(&blogs).Error
 	} else {
-		err = model.DB.Limit(service.Limit).Order("id").Offset(service.Offset).Find(&blogs).Error
+		err = model.DB.Limit(service.Limit).Order("id desc").Offset(service.Offset).Find(&blogs).Error
 	}
 
 	if err != nil {

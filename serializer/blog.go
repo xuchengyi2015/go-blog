@@ -10,6 +10,7 @@ type Blog struct {
 	Title      string `json:"title"`
 	Author     string `json:"author"`
 	Category   string `json:"category"`
+	Content    string `json:"content"`
 	Comments   string `json:"comments"`
 	CreatedAt  string `json:"created_at"`
 	Tags       string `json:"tags"`
@@ -23,6 +24,7 @@ func BuildBlog(blog model.Blog) Blog {
 		Title:      blog.Title,
 		Author:     blog.Author,
 		Category:   blog.Category,
+		Content:    blog.Content,
 		Comments:   blog.Comments,
 		CreatedAt:  blog.CreatedAt.Format(util.STANDARD_TIME_FORMAT),
 		Tags:       blog.Tags,
