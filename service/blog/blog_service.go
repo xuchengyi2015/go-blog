@@ -3,6 +3,8 @@ package blog
 import (
 	"go-blog/model"
 	"go-blog/serializer"
+	"go-blog/util"
+	"strings"
 )
 
 type CreateBlogService struct {
@@ -141,5 +143,26 @@ func (service *QueryBlogService) List() *serializer.Response {
 	}
 	return &serializer.Response{
 		Data: serializer.BuildBlogs(blogs),
+	}
+}
+
+func Tags() *serializer.Response {
+	var blogs []model.Blog
+	if err := model.DB.Select([]string{"tags"}).Find(&blogs).Error; err != nil {
+		return &serializer.Response{
+			Status: 50001,
+			Msg:    err.Error(),
+		}
+	}
+	var tags []string
+	for _, v := range blogs {
+		for _, t := range strings.Split(v.Tags, "|") {
+			if util.StringsContains(tags, t) == -1 {
+				tags = append(tags, t)
+			}
+		}
+	}
+	return &serializer.Response{
+		Data: tags,
 	}
 }

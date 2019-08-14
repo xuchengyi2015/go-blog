@@ -39,3 +39,8 @@ func BlogSave(c *gin.Context) {
 		c.JSON(200, err)
 	}
 }
+
+func BlogTags(c *gin.Context) {
+	res := blog.Tags()
+	c.JSON(200, res)
+}
