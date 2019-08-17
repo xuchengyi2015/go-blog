@@ -44,3 +44,8 @@ func BlogTags(c *gin.Context) {
 	res := blog.Tags()
 	c.JSON(200, res)
 }
+
+func BlogCategories(c *gin.Context) {
+	res := blog.Categories()
+	c.JSON(200, res)
+}

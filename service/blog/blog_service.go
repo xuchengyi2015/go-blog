@@ -26,7 +26,7 @@ type QueryBlogService struct {
 	QueryField string `json:"query_field"`
 	QueryValue string `json:"query_value"`
 	Category   string `json:"category"`
-	Tag string `json:"tag"`
+	Tag        string `json:"tag"`
 }
 
 func (service *CreateBlogService) Save() (model.Blog, *serializer.Response) {
@@ -165,5 +165,34 @@ func Tags() *serializer.Response {
 	}
 	return &serializer.Response{
 		Data: tags,
+	}
+}
+
+type CategoryTemp struct {
+	Category string `json:"category"`
+	Num      int    `json:"num"`
+}
+
+func Categories() *serializer.Response {
+	categoryTemps := []CategoryTemp{}
+
+	sql := "SELECT category ,COUNT(1) AS num FROM blogs GROUP BY category ORDER BY category	;"
+	rows, err := model.DB.Raw(sql).Rows()
+	defer rows.Close()
+	if err != nil {
+		return &serializer.Response{
+			Status: 50001,
+			Error:  err.Error(),
+		}
+	}
+
+	for rows.Next() {
+		categoryTemp := CategoryTemp{}
+		model.DB.ScanRows(rows, &categoryTemp)
+		categoryTemps = append(categoryTemps, categoryTemp)
+	}
+
+	return &serializer.Response{
+		Data: rows,
 	}
 }

@@ -32,7 +32,8 @@ func NewRouter() *gin.Engine {
 		v1.POST("blogs", api.BlogList)
 		v1.POST("blog", api.BlogSave)
 		v1.DELETE("blog/:id", api.BlogDelete)
-		v1.GET("tags",api.BlogTags)
+		v1.GET("tags", api.BlogTags)
+		v1.GET("categories", api.BlogCategories)
 
 		// 需要登录保护的
 		auth := r.Group("")
