@@ -26,6 +26,7 @@ type QueryBlogService struct {
 	QueryField string `json:"query_field"`
 	QueryValue string `json:"query_value"`
 	Category   string `json:"category"`
+	Tag string `json:"tag"`
 }
 
 func (service *CreateBlogService) Save() (model.Blog, *serializer.Response) {

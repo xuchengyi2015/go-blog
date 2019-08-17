@@ -12,4 +12,5 @@ type Blog struct {
 	Tags string
 	Brief string
 	ThemeImage string
+	Classification string
 }
