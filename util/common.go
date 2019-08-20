@@ -27,3 +27,7 @@ func StringsContains(array []string, val string) (index int) {
 	}
 	return
 }
+
+func IsEmpty(s string) bool {
+	return len(s) == 0 || s == ""
+}

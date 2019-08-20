@@ -18,7 +18,11 @@ type Blog struct {
 	ThemeImage string `json:"theme_image"`
 }
 
-func BuildBlog(blog model.Blog) Blog {
+// isList 表示如果返回的是列表就不要返回当前文档的内容
+func BuildBlog(blog model.Blog, isList bool) Blog {
+	if isList {
+		blog.Content = ""
+	}
 	return Blog{
 		ID:         blog.ID,
 		Title:      blog.Title,
@@ -35,7 +39,7 @@ func BuildBlog(blog model.Blog) Blog {
 
 func BuildBlogs(items []model.Blog) (blogs []Blog) {
 	for _, v := range items {
-		blog := BuildBlog(v)
+		blog := BuildBlog(v, true)
 		//blog.Content = util.SubString(blog.Content, 0, 135) + "....."
 		blogs = append(blogs, blog)
 	}

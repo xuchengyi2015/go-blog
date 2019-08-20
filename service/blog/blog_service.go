@@ -3,8 +3,6 @@ package blog
 import (
 	"go-blog/model"
 	"go-blog/serializer"
-	"go-blog/util"
-	"strings"
 )
 
 type CreateBlogService struct {
@@ -17,16 +15,6 @@ type CreateBlogService struct {
 	Tags       string `json:"tags"`
 	Brief      string `json:"brief"`
 	ThemeImage string `json:"theme_image"`
-}
-
-// QueryField: Archive,Category,Tags
-type QueryBlogService struct {
-	Limit      uint   `json:"limit"`
-	Offset     uint   `json:"offset"`
-	QueryField string `json:"query_field"`
-	QueryValue string `json:"query_value"`
-	Category   string `json:"category"`
-	Tag        string `json:"tag"`
 }
 
 func (service *CreateBlogService) Save() (model.Blog, *serializer.Response) {
@@ -96,7 +84,7 @@ func Show(id string) serializer.Response {
 		}
 	}
 	return serializer.Response{
-		Data: serializer.BuildBlog(blog),
+		Data: serializer.BuildBlog(blog, false),
 	}
 }
 
@@ -123,76 +111,5 @@ func Delete(id string) serializer.Response {
 
 	return serializer.Response{
 		Msg: "It's success to delete a blog.",
-	}
-}
-
-func (service *QueryBlogService) List() *serializer.Response {
-	var blogs []model.Blog
-	var err error
-	if service.QueryField != "" {
-		err = model.DB.Where(service.QueryField+" = ?", service.QueryValue).Order("id desc").Limit(service.Limit).Offset(service.Offset).Find(&blogs).Error
-	} else {
-		err = model.DB.Limit(service.Limit).Order("id desc").Offset(service.Offset).Find(&blogs).Error
-	}
-
-	if err != nil {
-		return &serializer.Response{
-			Status: 50001,
-			Msg:    "error",
-			Error:  err.Error(),
-		}
-	}
-	return &serializer.Response{
-		Data: serializer.BuildBlogs(blogs),
-	}
-}
-
-func Tags() *serializer.Response {
-	var blogs []model.Blog
-	if err := model.DB.Select([]string{"tags"}).Find(&blogs).Error; err != nil {
-		return &serializer.Response{
-			Status: 50001,
-			Msg:    err.Error(),
-		}
-	}
-	var tags []string
-	for _, v := range blogs {
-		for _, t := range strings.Split(v.Tags, "|") {
-			if util.StringsContains(tags, t) == -1 {
-				tags = append(tags, t)
-			}
-		}
-	}
-	return &serializer.Response{
-		Data: tags,
-	}
-}
-
-type CategoryTemp struct {
-	Category string `json:"category"`
-	Num      int    `json:"num"`
-}
-
-func Categories() *serializer.Response {
-	categoryTemps := []CategoryTemp{}
-
-	sql := "SELECT category ,COUNT(1) AS num FROM blogs GROUP BY category ORDER BY category	;"
-	rows, err := model.DB.Raw(sql).Rows()
-	defer rows.Close()
-	if err != nil {
-		return &serializer.Response{
-			Status: 50001,
-			Error:  err.Error(),
-		}
-	}
-
-	for rows.Next() {
-		categoryTemp := CategoryTemp{}
-		model.DB.ScanRows(rows, &categoryTemp)
-		categoryTemps = append(categoryTemps, categoryTemp)
-	}
-
-	return &serializer.Response{
-		Data: rows,
 	}
 }

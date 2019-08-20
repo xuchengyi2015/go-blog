@@ -32,7 +32,7 @@ func BlogSave(c *gin.Context) {
 		if blog, err := service.Save(); err != nil {
 			c.JSON(200, err)
 		} else {
-			res := serializer.BuildBlog(blog)
+			res := serializer.BuildBlog(blog, false)
 			c.JSON(200, res)
 		}
 	} else {
