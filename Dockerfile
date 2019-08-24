@@ -7,5 +7,5 @@ WORKDIR $GOPATH/src/github.com/xuchengyi2015/go-blog
 COPY . $GOPATH/src/github.com/xuchengyi2015/go-blog
 RUN go build .
 
-EXPOSE 8000
+EXPOSE 3001
 ENTRYPOINT ["./go-blog"]
